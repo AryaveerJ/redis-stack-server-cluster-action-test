@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Step 1 - Start Redis Stack Server Cluster 
-        uses: AryaveerJ/redis-stack-server-cluster
+        uses: AryaveerJ/redis-stack-server-cluster@1.0.0
         with:
           master1-port: 8000
           master2-port: 7000
