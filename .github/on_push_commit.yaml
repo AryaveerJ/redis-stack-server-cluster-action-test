@@ -1,0 +1,26 @@
+name: redis-stack-server-cluster-action-test-ci
+on:
+  push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1 - Start Redis Stack Server Cluster 
+        uses: AryaveerJ/redis-stack-server-cluster
+        with:
+          master1-port: 8000
+          master2-port: 7000
+          master3-port: 7001
+      - name: Step 2 - Install Redis Tools
+        run: sudo apt-get update && sudo apt-get install -y redis-tools
+      - name: Step 3 - Verify Redis Cmds
+        run: |
+          # Test PING on each Redis master node
+          redis-cli -p 8000 PING
+          redis-cli -p 7000 PING
+          redis-cli -p 7001 PING
+          # Test cluster nodes on each Redis master node
+          redis-cli -p 8000 CLUSTER NODES
+          redis-cli -p 7000 CLUSTER NODES
+          redis-cli -p 7001 CLUSTER NODES
